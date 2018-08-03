@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'Vendor/bootstrap/dist/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'Vendor/fontawesome/css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'Vendor/animate.css/animate.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'Icons/pe-icon-7-stroke/css/pe-icon-7-stroke.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'Vendor/fontawesome/css/font-awesome.min.css' %}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'Vendor/bootstrap-treeview-master/dist/bootstrap-treeview.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'Content/mainstyle.css' %}"/>
+
+    <script src="{% static 'Vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'Vendor/bootstrap/dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'Vendor/metisMenu/dist/metisMenu.min.js' %}"></script>
+    <script src="{% static 'Vendor/iCheck/icheck.min.js' %}"></script>
+    <script src="{% static 'Vendor/peity/jquery.peity.min.js' %}"></script>
+    <script src="{% static 'Vendor/sparkline/index.js' %}"></script>
+    <script src="{% static 'Scripts/homer.js' %}"></script>
+    <script src="{% static 'Scripts/charts.js' %}"></script>
+    <script src="{% static 'Vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'Vendor/bootstrap-treeview-master/src/js/bootstrap-treeview.js' %}"></script>
+    <!-- Add local styles, mostly for plugins css file -->
+
+
+</head>
+<body class="fixed-sidebar fixed-navbar">
+
+
+<div id="header">
+    <div class="color-line">
+    </div>
+    <div id="logo" class="light-version">
+    <span>
+        Accounting Toolkit Library
+    </span>
+    </div>
+    <nav role="navigation">
+        <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+        <div class="small-logo">
+            <span class="text-primary">CMA-CGM APP</span>
+        </div>
+        <form role="search" class="navbar-form-custom" method="post" action="#">
+            <div class="form-group">
+                <input type="text" placeholder="Search something special" class="form-control" name="search">
+            </div>
+        </form>
+        <div class="mobile-menu">
+            <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse"
+                    data-target="#mobile-collapse">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+            <div class="collapse mobile-navbar" id="mobile-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="" href="#">Link 1</a>
+                    </li>
+                    <li>
+                        <a class="" href="#">Link 1</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav no-borders">
+                <li>
+                    <img src="{% static 'Images/cma.png' %}" style="margin-right:20px;"/>
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</div>
+
+<aside id="menu">
+    <div id="navigation">
+        <div id="tree"></div>
+    </div>
+</aside>
+<div id="wrapper">
+    <div id="Selector"></div>
+
+
+    <!-- Footer-->
+    <footer class="footer">
+    <span class="pull-right">
+
+    </span>
+        <span class="cma-span">
+        Copyright CMA CGM @ 2018-2020
+    </span>
+
+    </footer>
+</div>
+<script type="text/javascript">
+
+    var _curPageLink = '';
+
+{#     function getCookie(name) {#}
+{#        var cookieValue = null;#}
+{#        if (document.cookie && document.cookie !== '') {#}
+{#            var cookies = document.cookie.split(';');#}
+{#            for (var i = 0; i < cookies.length; i++) {#}
+{#                var cookie = jQuery.trim(cookies[i]);#}
+{#                // Does this cookie string begin with the name we want?#}
+{#                if (cookie.substring(0, name.length + 1) === (name + '=')) {#}
+{#                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
+{#                    break;#}
+{#                }#}
+{#            }#}
+{#        }#}
+{#        return cookieValue;#}
+{#    }#}
+{##}
+{#    var csrftoken = getCookie('csrftoken');#}
+
+    $(function () {
+
+        var tree = $('#tree').treeview({
+            enableLinks: false,
+            showBorder: false,
+            expandIcon: 'glyphicon glyphicon-chevron-right',
+            collapseIcon: 'glyphicon glyphicon-chevron-down',
+            onhoverColor: '#f0f8ff',
+            selectedBackColor: '#34495e',
+            data: getTree()
+        });
+
+        tree.on('nodeSelected', function (event, data) {
+            if (data.href == _curPageLink) {
+                if (data.isOpen) {
+                    window.open(data.href, '_blank');
+                    return;
+                } else
+                    return;
+            }
+
+            if (data.href == '#')
+                return;
+            _curPageLink = data.href;
+
+            if (data.isOpen) {
+                window.open(data.href, '_blank');
+                return;
+            }
+
+            //$("#Selector").html(wattingDialog());
+
+            setTimeout(function () {
+                $.ajax({
+                    url: data.href,
+                    type: "Post",
+                    data: {id: 1},
+                    success: function (data) {
+                        $("#Selector").html('');
+                        $("#Selector").html(data);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("Loading failed：" + errorThrown);
+                        $("#Selector").html('');
+                    }
+                });
+            }, 1);
+
+
+        });
+
+    })
+
+    // using jQuery
+
+
+    //Demo data
+    function getTree() {
+        var data = [
+            {
+                text: "Library & Manual",
+                href: "#",
+                isOpen: false,
+                nodes: [
+                    {
+                        text: "MCN",
+                        icon: "fa fa-paper-plane",
+                        href: "#",
+                        nodes: [
+                            {
+                                text: "Freight Module",
+                                icon: "fa fa-credit-card",
+                                href: '/Manual/1',
+                                isOpen: false,
+                            },
+                            {
+                                text: "D/D Module",
+                                icon: "fa fa-credit-card",
+                                href: '/Manual/2',
+                                isOpen: false,
+                            },
+                            {
+                                text: "Dept & GM Approve",
+                                icon: "fa fa-credit-card",
+                                href: '/Manual/3',
+                                isOpen: false,
+                            }, {
+                                text: "Doc Assign",
+                                icon: "fa fa-credit-card",
+                                href: '/Manual/4',
+                                isOpen: false,
+                            }, {
+                                text: "Lara Modification",
+                                icon: "fa fa-credit-card",
+                                href: '/Manual/5',
+                                isOpen: false,
+                            }, {
+                                text: "Accounting Dept",
+                                icon: "fa fa-credit-card",
+                                href: '/Manual/6',
+                                isOpen: false,
+                            },
+                        ],
+                        state: {
+                            "checked": false, "disabled": false, "expanded": true, "selected": false
+                        }
+                    }
+                ]
+            }
+        ];
+        // Some logic to retrieve, or generate tree structure
+        return data;
+    }
+
+</script>
+
+
+</body>
+</html>
