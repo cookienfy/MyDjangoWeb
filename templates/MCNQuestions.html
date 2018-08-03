@@ -1,0 +1,38 @@
+﻿{% load staticfiles %}
+<h3>MCN Questions</h3>
+
+<hr/>
+<div class="note-content" style="font-size:15px;">
+    <p style="margin-left:10px;font-size:15px;color:darkred;">
+        <i class="fa fa-star"></i> 常见问题的分享与疑问:
+    </p>
+    <p style="margin-left:20px;">
+        1). 输入BLNo找不到改票的处理方法？
+    </p>
+    <p style="margin-left:60px;">
+        输入提单号，无法查询到该票的原因。
+    </p>
+    <p style="margin-left:80px;">
+        a. 该票可能GSC还未做好运费，运费舱单CSV文件中没有。
+    </p>
+    <p style="margin-left:80px;">
+        b. 拆单，并单的问题，导致该提单号已合并或者被拆分为多个提单号。
+    </p>
+    <p style="margin-left:80px;">
+        如遇此类问题请新增一个需要更改的提单号，提交。
+    </p>
+    <img class="img-screenshot" src="{% static 'Images/Helper/MCN-FM-16.png' %}"/>
+    <img class="img-screenshot" src="{% static 'Images/Helper/MCN-FM-17.png' %}"/>
+    <p style="margin-left:20px;">
+        2). MCN数据来源？
+    </p>
+    <p style="margin-left:60px;">
+        当GSC完成print invoice时，可以从Lara中导出运费舱单CSV文件，导入到Accounting Toolkit中，作为MCN的数据来源。
+    </p>
+    <p style="margin-left:20px;">
+        3). 如何对MCN重复更改？
+    </p>
+    <p style="margin-left:60px;">
+        当某票提单号正在走MCN审批流程时，同时又对这票提单做新的MCN申请，此时系统会提示无法操作，因为正在审批，但是如果确实要对这票做更改，那么需要先将这票之前的MCN申请Reject后，在Draft内修改重新提交。
+    </p>
+</div>
