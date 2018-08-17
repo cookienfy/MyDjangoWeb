@@ -2,6 +2,8 @@ from random import randrange
 
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db import models
+from django_web.models import library
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
@@ -19,4 +21,8 @@ def index(request):
 def Manual(request, id):
     context = {}
     context['index'] = id
+    # li=library()
+    # li.doubt=11
+    # models.library.objects.create(li)
+
     return render(request, 'Manual.html', context)
